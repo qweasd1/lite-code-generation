@@ -16,7 +16,7 @@ export class ContextImpl implements Context {
   generatingCache = []
 
   constructor(
-    segement: undefined | null | string,
+    segement: undefined | null | CodeLike,
     public config: CodeGenerationConfig,
     public state: State,
     public parent: Context
@@ -30,7 +30,7 @@ export class ContextImpl implements Context {
       parent.children.push(this)
     }
 
-    this.segements.push(segement)
+    this._add([segement])
     this.indent = this.config.indent.repeat(this.state.currentIndentCount)
   }
 

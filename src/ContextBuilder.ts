@@ -1,4 +1,4 @@
-import {CodeGenerationConfig, Context, State} from "./Interface";
+import {CodeGenerationConfig, CodeLike, Context, State} from "./Interface";
 import {ContextImpl} from "./ContextImpl";
 
 export class ContextBuilder {
@@ -11,7 +11,7 @@ export class ContextBuilder {
 
   }
 
-  create(): (text?: string) => Context {
+  create(): (text?: CodeLike) => Context {
     const contextStack = []
 
     const state: State = {
@@ -19,7 +19,7 @@ export class ContextBuilder {
       currentContext: null
     }
 
-    let result = (text: string = "") => {
+    let result = (text: CodeLike = "") => {
       let newContext
       const context = new ContextImpl(text, this.config, state, state.currentContext)
       if (!context.parent) {

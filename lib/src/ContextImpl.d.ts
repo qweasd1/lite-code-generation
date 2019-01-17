@@ -12,7 +12,7 @@ export declare class ContextImpl implements Context {
     isIBracketFirst: boolean;
     currentBracketConfig: BracketConfig;
     generatingCache: any[];
-    constructor(segement: undefined | null | string, config: CodeGenerationConfig, state: State, parent: Context);
+    constructor(segement: undefined | null | CodeLike, config: CodeGenerationConfig, state: State, parent: Context);
     if(condition: boolean, ...code: CodeLike[]): Context;
     ifAll(condition: boolean[], ...code: CodeLike[]): Context;
     ifAny(condition: boolean[], ...code: CodeLike[]): Context;

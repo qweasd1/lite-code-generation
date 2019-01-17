@@ -137,7 +137,7 @@ async function tt(ctx: Context) {
 it('use typescript builder', async function () {
   const builder = new ContextBuilder(tsConfig)
   const ctx = builder.create()
-
+  ctx((ctx)=>{ctx.append("let t").append(" = 1")})
   ctx("import {A} from 'a'").append(";")
   ctx("import ").ibracket("{").if(true, "A").if(true, "B").ibracketEnd().append(" from 'some-module'")
   ctx("import {B} from 'b'").newLine(1)

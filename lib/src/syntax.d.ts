@@ -1,2 +1,2 @@
-import { CodeGenerationConfig, Context } from "./Interface";
-export declare function generate(language: CodeGenerationConfig, code: (ctx: (text?: string) => Context) => (Promise<void> | void)): Promise<string>;
+import { CodeGenerationConfig, CodeLike, Context } from "./Interface";
+export declare function generate(language: CodeGenerationConfig, code: (ctx: (text?: CodeLike) => Context) => (Promise<void> | void)): Promise<string>;
