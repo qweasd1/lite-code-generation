@@ -392,7 +392,10 @@ try python
 // all the function you call can be an async function, so you can load meta data from remote service and then generate the code
 ```
 
-
+> Internal works
+```
+How lite code generation works internally
+```
 
 
 
