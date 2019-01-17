@@ -2,7 +2,7 @@ import {ContextImpl} from "../src/ContextImpl";
 import {CodeGenerationConfig, Context, State} from "../src/Interface";
 import {ContextBuilder} from "../src/ContextBuilder";
 import {generate} from "../src/syntax";
-import {python} from "../src/language";
+import {python, typescript} from "../src/language";
 
 const tsConfig: CodeGenerationConfig = {
   indent: "  ",
@@ -137,7 +137,7 @@ async function tt(ctx: Context) {
 it('use typescript builder', async function () {
   const builder = new ContextBuilder(tsConfig)
   const ctx = builder.create()
-  ctx((ctx)=>{ctx.append("let t").append(" = 1")})
+
   ctx("import {A} from 'a'").append(";")
   ctx("import ").ibracket("{").if(true, "A").if(true, "B").ibracketEnd().append(" from 'some-module'")
   ctx("import {B} from 'b'").newLine(1)
@@ -197,6 +197,19 @@ it('use python builder', async function () {
 
     })
 
+  })
+
+  expect(code).toEqual("")
+});
+
+it('use if else', async function () {
+
+  const options = [{name: "id", type: "int", isPrimary: true, isGenerated: true}, {name: "nam", type: "string"}]
+  const code = await generate(typescript,(ctx)=>{
+    for(let column of options){
+      ctx("@").if(column.isGenerated,"PrimaryGeneratedColumn").elseIf(column.isPrimary,"PrimaryColumn").else("Column").append("()")
+      ctx(`${column.name}:${column.type}`).newLine()
+    }
   })
 
   expect(code).toEqual("")

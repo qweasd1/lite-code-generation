@@ -15,6 +15,8 @@ export interface Context {
 
   else(...code: CodeLike[]): Context
 
+  elseIf(condition: boolean, ...code: CodeLike[]): Context
+
 
   body(content: BodyFunction): Context
 

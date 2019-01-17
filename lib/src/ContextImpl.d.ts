@@ -14,6 +14,7 @@ export declare class ContextImpl implements Context {
     generatingCache: any[];
     constructor(segement: undefined | null | CodeLike, config: CodeGenerationConfig, state: State, parent: Context);
     if(condition: boolean, ...code: CodeLike[]): Context;
+    elseIf(condition: boolean, ...code: CodeLike[]): Context;
     ifAll(condition: boolean[], ...code: CodeLike[]): Context;
     ifAny(condition: boolean[], ...code: CodeLike[]): Context;
     else(...code: CodeLike[]): Context;

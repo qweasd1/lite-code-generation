@@ -7,6 +7,7 @@ export interface Context {
     ifAll(condition: boolean[], ...code: CodeLike[]): Context;
     ifAny(condition: boolean[], ...code: CodeLike[]): Context;
     else(...code: CodeLike[]): Context;
+    elseIf(condition: boolean, ...code: CodeLike[]): Context;
     body(content: BodyFunction): Context;
     bracket(char: string, content: BodyFunction): Context;
     ibracket(char: string): Context;

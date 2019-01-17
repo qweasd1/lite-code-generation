@@ -46,8 +46,26 @@ export class ContextImpl implements Context {
     return this;
   }
 
+  elseIf(condition: boolean,...code: CodeLike[]):Context {
+    if(!this.ifCondition && condition){
+      this._add(code)
+      this.ifCondition = true
+    }
+    else {
+      this.ifCondition = false
+    }
+    return this;
+  }
+
   ifAll(condition: boolean[], ...code: CodeLike[]): Context {
-    if (condition.find(x => !x) === undefined) {
+    let hasFalse = false
+    for(let c of condition){
+      if(!c){
+        hasFalse = true
+        break
+      }
+    }
+    if (!hasFalse) {
       this._add(code)
       this.ifCondition = true
     }
@@ -129,7 +147,7 @@ export class ContextImpl implements Context {
   }
 
 
-  newLine(n?: number): Context {
+  newLine(n: number = 1): Context {
     for (let i = 0; i < n; i++) {
       this.segements.push(this.config.EOL)
     }
