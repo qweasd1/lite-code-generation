@@ -4,5 +4,5 @@ export declare class ContextBuilder {
     rootContexts: Context[];
     constructor(config: CodeGenerationConfig);
     create(): (text?: CodeLike) => Context;
-    generateCode(): Promise<string>;
+    generateCode(): string;
 }

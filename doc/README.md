@@ -189,14 +189,12 @@ npm i lite-code-generation
 > generate your first code
 ```typescript
 import {generate,typescript} from 'lite-code-generation'
-async main(){
-  const code = await generate(typescript,(ctx)=>{
+
+const code = generate(typescript,(ctx)=>{
     ctx("console.log('hello world!')")
   })
 
   console.log(code)
-}
-main()
 
 // this will generate
 `console.log('hello world!')`
@@ -235,16 +233,13 @@ function test(name,age) {
 
 > conditional generation
 ```typescript
-const code = await generate(typescript,(ctx)=>{
-    const interfaces = {
+const interfaces = {
         "OnInit":true,
         "OnDestroy:false"
     }
-    ctx("class Some").ifAny(Object.values(interfaces)," implements").if(interfaces.OnInit," OnInit").if(interfaces.OnDestroy, " OnDestroy").body(()=>{ // every time you use body, it will add indent inside it
+ctx("class Some").ifAny(Object.values(interfaces)," implements").if(interfaces.OnInit," OnInit").if(interfaces.OnDestroy, " OnDestroy").body(()=>{ // every time you use body, it will add indent inside it
 
-    })
-  })
-
+})
 // this will generate
 class Some extends OnInit {
 
@@ -252,7 +247,7 @@ class Some extends OnInit {
 ```
 
 > bracket structure
-```
+```typescript
 // the bracket structure appears in nearly every programming languages
 // a bracket structure start with barcket, concat the inner parameters with delmieter like "," and end with the close bracket
 // e.g. array in typescript is a bracket structure [1,2,3]
@@ -262,15 +257,12 @@ class Some extends OnInit {
 
 // the first one is multiline bracket structure .bracket(bracketStartChar,body)
 // e.g.
-const code = await generate(typescript,(ctx)=>{
-    ctx("let t = ").bracket("[",()=>{
+ ctx("let t = ").bracket("[",()=>{
         ctx("1")
         ctx("2")
         ctx("3 + 4")
-    )
+ )
 
-    ctx()
-  })
 
 // this will generate
 let t = [
@@ -281,7 +273,7 @@ let t = [
 
 // the seoncd one is 1 line bracket structure .ibracket(bracketStartChar).append("a").append("b").ibracketEnd()
 // e.g.
-const code = await generate(typescript,(ctx)=>{
+const code = generate(typescript,(ctx)=>{
     ctx("test").ibracket("(").append("a").append("b").ibracketEnd()
 
 // this will generate
@@ -387,10 +379,6 @@ To be continue...
 try python
 ```
 
-> Async function call
-```
-// all the function you call can be an async function, so you can load meta data from remote service and then generate the code
-```
 
 > Internal works
 ```

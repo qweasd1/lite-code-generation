@@ -3,15 +3,12 @@ export declare class ContextImpl implements Context {
     config: CodeGenerationConfig;
     state: State;
     parent: Context;
-    segements: CodeLike[];
     children: Context[];
-    indent: string;
     ifCondition: boolean;
-    isGenerating: boolean;
     isIBracket: boolean;
     isIBracketFirst: boolean;
     currentBracketConfig: BracketConfig;
-    generatingCache: any[];
+    codeFunctionCache: any[];
     constructor(segement: undefined | null | CodeLike, config: CodeGenerationConfig, state: State, parent: Context);
     if(condition: boolean, ...code: CodeLike[]): Context;
     elseIf(condition: boolean, ...code: CodeLike[]): Context;
@@ -24,10 +21,13 @@ export declare class ContextImpl implements Context {
     ibracketEnd(): Context;
     append(...text: CodeLike[]): Context;
     newLine(n?: number): Context;
-    generate(): Promise<string>;
-    private _add;
+    generate(): string;
+    generateLines(): string[];
     private cache;
     private currentLine;
-    generateLines(): Promise<string[]>;
+    private _add;
+    private _processSegement;
+    private _processCodeFunction;
     private _addStringSegement;
+    private _finishCurrentLine;
 }

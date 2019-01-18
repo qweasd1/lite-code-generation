@@ -70,7 +70,6 @@ async function attachment(ctx: Context) {
 
 it('should pass', async function () {
   const state: State = {
-    currentIndentCount: 0,
     currentContext: null
   }
 
@@ -98,7 +97,6 @@ it('should pass', async function () {
 
 it('should pass', async function () {
   const state: State = {
-    currentIndentCount: 0,
     currentContext: null
   }
 
@@ -178,18 +176,18 @@ it('use typescript builder', async function () {
 
 it('use python builder', async function () {
 
-  const code = await generate(python,(ctx)=>{
+  const code = await generate(python, (ctx) => {
     ctx("import ").ibracket("").if(true, "a").if(true, "b").ibracketEnd().append(" from some-module").newLine(1)
 
     ctx("class SomeModule").body(() => {
 
-      ctx("def __init__").ibracket("(").append("self").append("a").ibracketEnd().body(()=>{
+      ctx("def __init__").ibracket("(").append("self").append("a").ibracketEnd().body(() => {
         ctx("self.a = a")
       })
 
       ctx("@log")
-      ctx("def test").ibracket("(").append("self").ibracketEnd().body(()=>{
-        ctx("if (true)").body(()=>{
+      ctx("def test").ibracket("(").append("self").ibracketEnd().body(() => {
+        ctx("if (true)").body(() => {
           ctx("return self.a")
         })
 
@@ -205,12 +203,34 @@ it('use python builder', async function () {
 it('use if else', async function () {
 
   const options = [{name: "id", type: "int", isPrimary: true, isGenerated: true}, {name: "nam", type: "string"}]
-  const code = await generate(typescript,(ctx)=>{
-    for(let column of options){
-      ctx("@").if(column.isGenerated,"PrimaryGeneratedColumn").elseIf(column.isPrimary,"PrimaryColumn").else("Column").append("()")
+  const code = await generate(typescript, (ctx) => {
+    for (let column of options) {
+      ctx("@").if(column.isGenerated, "PrimaryGeneratedColumn").elseIf(column.isPrimary, "PrimaryColumn").else("Column").append("()")
       ctx(`${column.name}:${column.type}`).newLine()
     }
   })
 
+  expect(code).toEqual("")
+});
+
+it('conditional bracket object', async function () {
+
+
+  const code = generate(typescript, (ctx) => {
+    ctx("@callSomeMethod(").if(true, (c) => {
+      c.bracket("{", () => {
+        ctx("name: 'some'")
+        ctx("other").bracket("{",()=>{
+          ctx("other:").bracket("{",()=>{
+            ctx("other:2")
+          })
+          ctx("other:1")
+          ctx("other:1")
+        })
+      })
+    }).append(")")
+    ctx("field:string").newLine(1)
+
+  })
   expect(code).toEqual("")
 });

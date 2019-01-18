@@ -1,5 +1,5 @@
 export type CodeFunction = (context: Context) => void;
-export type BodyFunction = (() => Promise<void>) | (() => void)
+export type BodyFunction = () => void
 export type CodeLike = string | CodeFunction | BodyFunction
 
 
@@ -28,9 +28,9 @@ export interface Context {
 
   newLine(n?: number): Context
 
-  generate(): Promise<string>
+  generate(): string
 
-  generateLines(): Promise<string[]>
+  generateLines(): string[]
 
   children: Context[]
 
@@ -52,7 +52,6 @@ export interface BracketConfig {
 }
 
 export interface State {
-  currentIndentCount: number
   currentContext: Context
 }
 

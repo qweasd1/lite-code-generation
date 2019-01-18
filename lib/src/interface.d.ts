@@ -1,5 +1,5 @@
 export declare type CodeFunction = (context: Context) => void;
-export declare type BodyFunction = (() => Promise<void>) | (() => void);
+export declare type BodyFunction = () => void;
 export declare type CodeLike = string | CodeFunction | BodyFunction;
 export interface Context {
     append(...text: CodeLike[]): Context;
@@ -13,8 +13,8 @@ export interface Context {
     ibracket(char: string): Context;
     ibracketEnd(): Context;
     newLine(n?: number): Context;
-    generate(): Promise<string>;
-    generateLines(): Promise<string[]>;
+    generate(): string;
+    generateLines(): string[];
     children: Context[];
 }
 export interface CodeGenerationConfig {
@@ -33,6 +33,5 @@ export interface BracketConfig {
     prefixIfNotFirst: string;
 }
 export interface State {
-    currentIndentCount: number;
     currentContext: Context;
 }

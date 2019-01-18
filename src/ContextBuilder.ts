@@ -15,7 +15,6 @@ export class ContextBuilder {
     const contextStack = []
 
     const state: State = {
-      currentIndentCount: 0,
       currentContext: null
     }
 
@@ -31,10 +30,10 @@ export class ContextBuilder {
     return result
   }
 
-  async generateCode(): Promise<string> {
+  generateCode(): string {
     const result = []
     for (let rootContext of this.rootContexts) {
-      result.push(...await rootContext.generateLines())
+      result.push(...rootContext.generateLines())
     }
     return result.join(this.config.EOL)
   }
