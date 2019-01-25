@@ -43,7 +43,9 @@ export interface CodeGenerationConfig {
   body: {
     start: string
     end: string
-  }
+  },
+  withInitIndent?:(indent:string)=>CodeGenerationConfig
+  initIndent?:string
 }
 
 export interface BracketConfig {

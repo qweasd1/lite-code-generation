@@ -31,9 +31,10 @@ export class ContextBuilder {
   }
 
   generateCode(): string {
+    const initIndent = this.config.initIndent || ""
     const result = []
     for (let rootContext of this.rootContexts) {
-      result.push(...rootContext.generateLines())
+      result.push(...rootContext.generateLines().map((line)=>initIndent + line))
     }
     return result.join(this.config.EOL)
   }

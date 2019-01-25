@@ -27,6 +27,8 @@ export interface CodeGenerationConfig {
         start: string;
         end: string;
     };
+    withInitIndent?: (indent: string) => CodeGenerationConfig;
+    initIndent?: string;
 }
 export interface BracketConfig {
     rightBracket: string;

@@ -211,12 +211,15 @@ it('use if else', async function () {
   })
 
   expect(code).toEqual("")
+
+
+
 });
 
 it('conditional bracket object', async function () {
 
 
-  const code = generate(typescript, (ctx) => {
+  const code = generate(typescript.withInitIndent(""), (ctx) => {
     ctx("@callSomeMethod(").if(true, (c) => {
       c.bracket("{", () => {
         ctx("name: 'some'")
@@ -233,4 +236,12 @@ it('conditional bracket object', async function () {
 
   })
   expect(code).toEqual("")
+});
+
+it('single line', function () {
+  const code = generate(typescript,(ctx)=>{
+    ctx("some").ibracket("(").append("name").append("age").ibracketEnd()
+  })
+
+  expect(code).toEqual("some(name, age)")
 });

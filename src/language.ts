@@ -1,5 +1,10 @@
 import {CodeGenerationConfig} from "./Interface";
 
+function withInitIndent(indent: string) {
+  this.initIndent = indent
+  return this
+}
+
 export let typescript:CodeGenerationConfig = {
   indent: "  ",
   EOL: "\n",
@@ -20,7 +25,8 @@ export let typescript:CodeGenerationConfig = {
   body: {
     start: " {",
     end: "}"
-  }
+  },
+  withInitIndent
 }
 
 export let javascript:CodeGenerationConfig = typescript
@@ -49,6 +55,7 @@ export let python:CodeGenerationConfig = {
   body: {
     start: ":",
     end: ""
-  }
+  },
+  withInitIndent
 }
 

@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "sourceRoot": "./src",
     "outDir": "./lib/",
     "noImplicitAny": false,
     "sourceMap": true,
